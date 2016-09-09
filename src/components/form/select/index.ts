@@ -24,6 +24,7 @@ var Vue: any = Vue || require('vue');
         'select::select': function(value) {
             if (Array.isArray(this.value)) {
                 this.value.push(value);
+                this.uniqueMultipleValues();
             }
             else {
                 this.value = value;
@@ -36,6 +37,7 @@ var Vue: any = Vue || require('vue');
         'select::unselect': function(value) {
             if (Array.isArray(this.value)) {
                 this.value.$remove(value);
+                this.uniqueMultipleValues();
             }
             else {
                 this.value = value;
@@ -150,9 +152,19 @@ export default class SelectField {
             }
         });
     }
-
+    uniqueMultipleValues() {
+        var uniqueValues = [];
+        this.value.forEach(function(item) {
+            if (uniqueValues.indexOf(item) < 0) {
+                uniqueValues.push(item);
+            }
+        });
+        this.value = uniqueValues;
+        console.log(uniqueValues)
+    }
     open(e) {
         if (!this.active) {
+            this.refreshDropdownOptions();
             this.active = true;
             this.$broadcast('dropdown-list::open', e);
         }
@@ -160,6 +172,7 @@ export default class SelectField {
 
     close() {
         if (this.active) {
+            this.refreshDropdownOptions();
             this.active = false;
             this.$broadcast('dropdown-list::close');
         }

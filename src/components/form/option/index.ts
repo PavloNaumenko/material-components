@@ -30,7 +30,10 @@ import input from '../../../mixins/input';
     mixins: [
         input
     ],
-    template: require('./option.html')
+    template: require('./option.html'),
+    created() {
+        this.$options.name = 'SelectOption'
+    }
 })
 export default class SelectOption {
     private _slotContents: any;
