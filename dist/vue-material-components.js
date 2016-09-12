@@ -2689,7 +2689,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.close(id);
 	                }
 	            },
-	            template: __webpack_require__(48)
+	            template: __webpack_require__(48),
+	            created: function () {
+	                this.$options.name = 'CollapsibleItem';
+	            }
 	        })
 	    ], CollapsibleItem);
 	    return CollapsibleItem;

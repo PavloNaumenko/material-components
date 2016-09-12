@@ -30,7 +30,10 @@ var Velocity = require('velocity-animate');
             this.close(id);
         }
     },
-    template: require('./collapsible-item.html')
+    template: require('./collapsible-item.html'),
+    created() {
+        this.$options.name = 'CollapsibleItem'
+    }
 })
 export default class CollapsibleItem {
     private $els: any;
