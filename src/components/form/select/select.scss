@@ -2,6 +2,9 @@
   input.select-dropdown {
     color: black;
   }
+  input.select-dropdown.readonly {
+    cursor: default !important;
+  }
 
   .select-wrapper {
     .select-dropdown {

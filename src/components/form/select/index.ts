@@ -18,7 +18,13 @@ var Vue: any = Vue || require('vue');
             required: false,
             'default': null,
             twoWay: false
-        }
+        },
+        readonly: {
+            type: Boolean,
+            required: false,
+            'default': null,
+            twoWay: false
+        },
     },
     events: {
         'select::select': function(value) {
@@ -70,6 +76,7 @@ export default class SelectField {
     private _slotContents: any;
 
     private active: boolean;
+    private readonly: boolean;
     private options: any;
     private defaultSelect: string;
     private value: any;
@@ -160,10 +167,9 @@ export default class SelectField {
             }
         });
         this.value = uniqueValues;
-        console.log(uniqueValues)
     }
     open(e) {
-        if (!this.active) {
+        if (!this.active && !this.readonly) {
             this.refreshDropdownOptions();
             this.active = true;
             this.$broadcast('dropdown-list::open', e);

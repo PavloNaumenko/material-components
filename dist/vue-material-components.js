@@ -3467,6 +3467,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'default': null,
 	                    twoWay: false
 	                },
+	                readonly: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': null,
+	                    twoWay: false
+	                },
 	                type: {
 	                    type: String,
 	                    required: false,
@@ -3529,7 +3535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"input-field\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <input v-if=\"disabled\"\n           v-model=\"value\"\n           :name=\"name\"\n           :placeholder=\"placeholder\" :id=\"id\"\n           :type=\"type\"\n           :lazy=\"lazy\"\n           v-bind-boolean:number=\"number\"\n           :debounce=\"debounce\"\n           disabled=\"disabled\"/>\n    <input v-else\n           v-model=\"value\"\n           :name=\"name\"\n           :placeholder=\"placeholder\" :id=\"id\"\n           :type=\"type\"\n           :lazy=\"lazy\"\n           v-bind-boolean:number=\"number\"\n           :debounce=\"debounce\"\n           @focus=\"activateField\"\n           @blur=\"deactivateField\"\n           class=\"validate\"\n           :class=\"validationClass\"/>\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\"\n           :data-error=\"errorMsg\" :data-success=\"successMsg\">\n        <slot></slot>\n    </label>\n</div>";
+	module.exports = "<div class=\"input-field\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <input v-if=\"disabled\"\n           v-model=\"value\"\n           :name=\"name\"\n           :placeholder=\"placeholder\" :id=\"id\"\n           :type=\"type\"\n           :lazy=\"lazy\"\n           v-bind-boolean:number=\"number\"\n           :debounce=\"debounce\"\n           disabled=\"disabled\"/>\n    <input v-else\n           v-model=\"value\"\n           :name=\"name\"\n           :placeholder=\"placeholder\" :id=\"id\"\n           :type=\"type\"\n           :lazy=\"lazy\"\n           v-bind-boolean:number=\"number\"\n           :debounce=\"debounce\"\n           @focus=\"activateField\"\n           @blur=\"deactivateField\"\n           class=\"validate\"\n           :class=\"validationClass\"\n           v-bind-boolean:readonly=\"readonly\"/>\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\"\n           :data-error=\"errorMsg\" :data-success=\"successMsg\">\n        <slot></slot>\n    </label>\n</div>";
 
 /***/ },
 /* 72 */
@@ -3939,10 +3945,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        });
 	        this.value = uniqueValues;
-	        console.log(uniqueValues);
 	    };
 	    SelectField.prototype.open = function (e) {
-	        if (!this.active) {
+	        if (!this.active && !this.readonly) {
 	            this.refreshDropdownOptions();
 	            this.active = true;
 	            this.$broadcast('dropdown-list::open', e);
@@ -3967,7 +3972,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    required: false,
 	                    'default': null,
 	                    twoWay: false
-	                }
+	                },
+	                readonly: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': null,
+	                    twoWay: false
+	                },
 	            },
 	            events: {
 	                'select::select': function (value) {
@@ -4022,7 +4033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"md-select input-field\" v-click-away=\"close\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <div class=\"select-wrapper\">\n        <span class=\"caret\">▼</span>\n        <input @click=\"open\" readonly=\"readonly\" :value=\"valueContent\" :name=\"name\"\n               type=\"text\" class=\"select-dropdown\">\n\n        <md-dropdown-list :active=\"active\" class=\"select-dropdown\">\n            <slot></slot>\n        </md-dropdown-list>\n\n        <select v-el:field\n                v-model=\"value\"\n                v-bind-boolean:multiple=\"multiple\"\n                :placeholder=\"placeholder\" :id=\"id\"\n                :type=\"type\">\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\n        </select>\n    </div>\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\n        <slot name=\"label\"></slot>\n    </label>\n</div>";
+	module.exports = "<div class=\"md-select input-field\" v-click-away=\"close\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <div class=\"select-wrapper\">\n        <span v-if=\"!readonly\" class=\"caret\">▼</span>\n        <input @click=\"open\" readonly=\"readonly\" :value=\"valueContent\" :name=\"name\"\n               type=\"text\" class=\"select-dropdown\" :class=\"{'readonly': readonly}\">\n\n        <md-dropdown-list :active=\"active\" class=\"select-dropdown\">\n            <slot></slot>\n        </md-dropdown-list>\n\n        <select v-el:field\n                v-model=\"value\"\n                v-bind-boolean:multiple=\"multiple\"\n                :placeholder=\"placeholder\" :id=\"id\"\n                :type=\"type\">\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\n        </select>\n    </div>\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\n        <slot name=\"label\"></slot>\n    </label>\n</div>";
 
 /***/ },
 /* 82 */

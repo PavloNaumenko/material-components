@@ -22,7 +22,8 @@
            @focus="activateField"
            @blur="deactivateField"
            class="validate"
-           :class="validationClass"/>
+           :class="validationClass"
+           v-bind-boolean:readonly="readonly"/>
     <label v-if="hasSlot()" :for="id" :class="labelClasses"
            :data-error="errorMsg" :data-success="successMsg">
         <slot></slot>

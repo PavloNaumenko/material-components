@@ -3,9 +3,9 @@
         <slot name="icon-name"></slot>
     </i>
     <div class="select-wrapper">
-        <span class="caret">▼</span>
+        <span v-if="!readonly" class="caret">▼</span>
         <input @click="open" readonly="readonly" :value="valueContent" :name="name"
-               type="text" class="select-dropdown">
+               type="text" class="select-dropdown" :class="{'readonly': readonly}">
 
         <md-dropdown-list :active="active" class="select-dropdown">
             <slot></slot>

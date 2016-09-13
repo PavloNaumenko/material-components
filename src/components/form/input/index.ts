@@ -27,6 +27,12 @@ import bindBoolean from '../../../directives/bind-boolean';
             'default': null,
             twoWay: false
         },
+        readonly: {
+            type: Boolean,
+            required: false,
+            'default': null,
+            twoWay: false
+        },
         type: {
             type: String,
             required: false,
@@ -89,6 +95,7 @@ export default class InputField {
     private value: string;
     private placeholder: string;
     private disabled: boolean;
+    private readonly: boolean;
     private active: boolean;
     private errorMsg: string;
     private successMsg: string;

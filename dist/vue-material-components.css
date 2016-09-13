@@ -706,6 +706,9 @@ nav span.badge.new .new {
 .md-select input.select-dropdown {
   color: black; }
 
+.md-select input.select-dropdown.readonly {
+  cursor: default !important; }
+
 .md-select .select-wrapper .select-dropdown {
   top: 0 !important;
   left: 0 !important; }
