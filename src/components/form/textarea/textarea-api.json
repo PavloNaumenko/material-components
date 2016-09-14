@@ -31,6 +31,14 @@
       "twoWay": false
     },
     {
+      "name": "readonly",
+      "type": "Boolean",
+      "required": false,
+      "description": "Field is readonly if true",
+      "default": false,
+      "twoWay": false
+    },
+    {
       "name": "autoresize",
       "type": "Boolean",
       "required": false,

@@ -13,6 +13,7 @@
     <textarea v-else
               v-el:field
               v-model="value"
+              v-bind:readonly="readonly"
               :name="name"
               :id="id"
               :lazy="lazy" :number="number" :debounce="debounce"

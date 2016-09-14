@@ -21,6 +21,12 @@ import inputMixin from '../../../mixins/input';
             'default': null,
             twoWay: false
         },
+        readonly: {
+            type: Boolean,
+            required: false,
+            'default': null,
+            twoWay: false
+        },
         autoresize: {
             type: Boolean,
             required: false,

@@ -4132,6 +4132,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'default': null,
 	                    twoWay: false
 	                },
+	                readonly: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': null,
+	                    twoWay: false
+	                },
 	                autoresize: {
 	                    type: Boolean,
 	                    required: false,
@@ -4173,7 +4179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"md-textarea input-field\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <textarea v-if=\"disabled\"\n              v-el:field\n              v-model=\"value\"\n              :name=\"name\"\n              :id=\"id\" class=\"materialize-textarea\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              disabled=\"disabled\">\n    </textarea>\n    <textarea v-else\n              v-el:field\n              v-model=\"value\"\n              :name=\"name\"\n              :id=\"id\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              @focus=\"activateField\"\n              @blur=\"deactivateField\"\n              @keyup=\"resize\"\n              class=\"materialize-textarea\">\n    </textarea>\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\">\n        <slot></slot>\n    </label>\n</div>";
+	module.exports = "<div class=\"md-textarea input-field\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <textarea v-if=\"disabled\"\n              v-el:field\n              v-model=\"value\"\n              :name=\"name\"\n              :id=\"id\" class=\"materialize-textarea\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              disabled=\"disabled\">\n    </textarea>\n    <textarea v-else\n              v-el:field\n              v-model=\"value\"\n              v-bind:readonly=\"readonly\"\n              :name=\"name\"\n              :id=\"id\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              @focus=\"activateField\"\n              @blur=\"deactivateField\"\n              @keyup=\"resize\"\n              class=\"materialize-textarea\">\n    </textarea>\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\">\n        <slot></slot>\n    </label>\n</div>";
 
 /***/ },
 /* 84 */
