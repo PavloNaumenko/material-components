@@ -31,6 +31,7 @@ import mdOption from './form/option';
 import mdRadio from './form/radio';
 import mdRadioGroup from './form/radio-group';
 import mdSelect from './form/select';
+import mdAutocomplete from './form/autocomplete';
 import mdTextarea from './form/textarea';
 import mdIcon from './icon';
 import mdImage from './image';
@@ -78,6 +79,7 @@ const VueMaterializeComponents: any = {
     mdRadio,
     mdRadioGroup,
     mdSelect,
+    mdAutocomplete,
     mdTextarea,
     mdIcon,
     mdImage,

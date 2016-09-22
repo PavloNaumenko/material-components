@@ -713,6 +713,16 @@ nav span.badge.new .new {
   top: 0 !important;
   left: 0 !important; }
 
+.md-autocomplete input.select-dropdown {
+  color: black; }
+
+.md-autocomplete input.select-dropdown.readonly {
+  cursor: default !important; }
+
+.md-autocomplete .select-wrapper .select-dropdown {
+  top: 3rem !important;
+  left: 0 !important; }
+
 .md-textarea textarea.materialize-textarea {
   overflow: hidden;
   margin-top: 1.6rem;

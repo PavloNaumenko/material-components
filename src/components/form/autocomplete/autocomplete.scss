@@ -1,0 +1,15 @@
+.md-autocomplete {
+  input.select-dropdown {
+    color: black;
+  }
+  input.select-dropdown.readonly {
+    cursor: default !important;
+  }
+
+  .select-wrapper {
+    .select-dropdown {
+      top: 3rem !important;
+      left: 0 !important;
+    }
+  }
+}

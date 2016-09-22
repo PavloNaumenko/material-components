@@ -108,23 +108,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	var radio_1 = __webpack_require__(76);
 	var radio_group_1 = __webpack_require__(78);
 	var select_1 = __webpack_require__(80);
-	var textarea_1 = __webpack_require__(82);
+	var autocomplete_1 = __webpack_require__(82);
+	var textarea_1 = __webpack_require__(84);
 	var icon_1 = __webpack_require__(22);
-	var image_1 = __webpack_require__(84);
-	var lean_overlay_1 = __webpack_require__(86);
-	var linear_preloader_1 = __webpack_require__(89);
-	var modal_1 = __webpack_require__(91);
-	var nav_item_1 = __webpack_require__(93);
+	var image_1 = __webpack_require__(86);
+	var lean_overlay_1 = __webpack_require__(88);
+	var linear_preloader_1 = __webpack_require__(91);
+	var modal_1 = __webpack_require__(93);
+	var nav_item_1 = __webpack_require__(95);
 	var navbar_1 = __webpack_require__(28);
-	var pagination_1 = __webpack_require__(95);
+	var pagination_1 = __webpack_require__(97);
 	var sidenav_1 = __webpack_require__(29);
 	var sidenav_overlay_1 = __webpack_require__(30);
-	var slide_1 = __webpack_require__(97);
-	var slider_1 = __webpack_require__(99);
-	var swich_1 = __webpack_require__(101);
-	var tab_1 = __webpack_require__(103);
-	var tabs_1 = __webpack_require__(105);
-	__webpack_require__(107);
+	var slide_1 = __webpack_require__(99);
+	var slider_1 = __webpack_require__(101);
+	var swich_1 = __webpack_require__(103);
+	var tab_1 = __webpack_require__(105);
+	var tabs_1 = __webpack_require__(107);
+	__webpack_require__(109);
 	var VueMaterializeComponents = {
 	    mdBadge: badge_1.default,
 	    mdButton: button_1.default,
@@ -153,6 +154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    mdRadio: radio_1.default,
 	    mdRadioGroup: radio_group_1.default,
 	    mdSelect: select_1.default,
+	    mdAutocomplete: autocomplete_1.default,
 	    mdTextarea: textarea_1.default,
 	    mdIcon: icon_1.default,
 	    mdImage: image_1.default,
@@ -4047,6 +4049,170 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var vue_class_component_1 = __webpack_require__(19);
+	var dropdown_list_1 = __webpack_require__(58);
+	var input_1 = __webpack_require__(12);
+	var click_away_1 = __webpack_require__(6);
+	var bind_boolean_1 = __webpack_require__(4);
+	var Vue = Vue || __webpack_require__(2);
+	var AutocompleteField = (function () {
+	    function AutocompleteField() {
+	    }
+	    AutocompleteField.prototype.data = function () {
+	        return {
+	            active: false,
+	            options: {}
+	        };
+	    };
+	    AutocompleteField.prototype.compiled = function () {
+	        var options = this.$getAllChildren().filter(function (c) { return 'SelectOption' == c.$options.name; });
+	        for (var i = 0; i < options.length; i++) {
+	            var option = options[i];
+	            var opt = this.createOption(option);
+	            Vue.set(this.options, opt.value, opt);
+	        }
+	    };
+	    AutocompleteField.prototype.ready = function () {
+	        this.refreshDropdownOptions();
+	        this.valueContent = this.getValueContent();
+	    };
+	    AutocompleteField.prototype.createOption = function (option) {
+	        var content = option.content.textContent;
+	        if (option._scope) {
+	            content = option._scope.$interpolate(content);
+	        }
+	        var value = option.value;
+	        var disabled = option.disabled;
+	        return {
+	            content: content,
+	            value: value,
+	            disabled: disabled
+	        };
+	    };
+	    AutocompleteField.prototype.getValueContent = function () {
+	        return this.options[this.value] ? this.options[this.value].content : '';
+	    };
+	    Object.defineProperty(AutocompleteField.prototype, "field", {
+	        get: function () {
+	            return this.$els.field;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    AutocompleteField.prototype.hasSlot = function (name) {
+	        if (name === void 0) { name = 'default'; }
+	        return name in this._slotContents;
+	    };
+	    AutocompleteField.prototype.refreshDropdownOptions = function () {
+	        var _this = this;
+	        var options = Array.prototype.slice.call(this.field.options);
+	        options.forEach(function (o) {
+	            if (o.selected) {
+	                _this.$broadcast('option::select', o.value);
+	            }
+	        });
+	    };
+	    AutocompleteField.prototype.open = function (e) {
+	        if (!this.active && !this.readonly) {
+	            this.refreshDropdownOptions();
+	            this.active = true;
+	            this.$broadcast('dropdown-list::open', e);
+	        }
+	        this.valueContent = '';
+	    };
+	    AutocompleteField.prototype.close = function () {
+	        if (this.active) {
+	            this.refreshDropdownOptions();
+	            this.active = false;
+	            this.$broadcast('dropdown-list::close');
+	        }
+	    };
+	    AutocompleteField = __decorate([
+	        vue_class_component_1.default({
+	            props: {
+	                value: {
+	                    required: false,
+	                    'default': null
+	                },
+	                valueContent: {
+	                    required: false,
+	                    'default': null
+	                },
+	                name: {
+	                    type: String,
+	                    required: false,
+	                    'default': null,
+	                    twoWay: false
+	                },
+	                readonly: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': null,
+	                    twoWay: false
+	                },
+	                debounce: {
+	                    type: Number,
+	                    required: false,
+	                    'default': 0,
+	                    twoWay: false
+	                },
+	            },
+	            events: {
+	                'select::select': function (value) {
+	                    this.value = value;
+	                    this.close();
+	                    this.valueContent = this.getValueContent();
+	                    this.$broadcast('option::select', value);
+	                    return true;
+	                },
+	                'select::unselect': function (value) {
+	                    this.value = value;
+	                    this.valueContent = this.getValueContent();
+	                    this.$broadcast('option::unselect', value);
+	                    return true;
+	                }
+	            },
+	            watch: {
+	                value: function () {
+	                    this.$nextTick(this.refreshDropdownOptions);
+	                }
+	            },
+	            components: {
+	                mdDropdownList: dropdown_list_1.default
+	            },
+	            directives: {
+	                clickAway: click_away_1.default,
+	                bindBoolean: bind_boolean_1.default
+	            },
+	            mixins: [
+	                input_1.default
+	            ],
+	            template: __webpack_require__(83)
+	        })
+	    ], AutocompleteField);
+	    return AutocompleteField;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = AutocompleteField;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"md-autocomplete input-field\" v-click-away=\"close\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <div class=\"select-wrapper\">\n        <span v-if=\"!readonly\" class=\"caret\">▼</span>\n        <input @click=\"open\" v-model=\"valueContent\" :name=\"name\"\n               type=\"text\" class=\"select-dropdown\" :class=\"{'readonly': readonly}\" :debounce=\"debounce\">\n\n        <md-dropdown-list :active=\"active\" class=\"select-dropdown\">\n            <slot></slot>\n        </md-dropdown-list>\n\n        <select v-el:field\n                v-model=\"value\"\n                :placeholder=\"placeholder\" :id=\"id\"\n                :type=\"type\">\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\n        </select>\n    </div>\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\n        <slot name=\"label\"></slot>\n    </label>\n</div>";
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var vue_class_component_1 = __webpack_require__(19);
 	var input_1 = __webpack_require__(12);
 	var TextArea = (function () {
 	    function TextArea() {
@@ -4166,7 +4332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(83)
+	            template: __webpack_require__(85)
 	        })
 	    ], TextArea);
 	    return TextArea;
@@ -4176,13 +4342,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"md-textarea input-field\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <textarea v-if=\"disabled\"\n              v-el:field\n              v-model=\"value\"\n              :name=\"name\"\n              :id=\"id\" class=\"materialize-textarea\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              disabled=\"disabled\">\n    </textarea>\n    <textarea v-else\n              v-el:field\n              v-model=\"value\"\n              v-bind:readonly=\"readonly\"\n              :name=\"name\"\n              :id=\"id\"\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\n              @focus=\"activateField\"\n              @blur=\"deactivateField\"\n              @keyup=\"resize\"\n              class=\"materialize-textarea\">\n    </textarea>\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\">\n        <slot></slot>\n    </label>\n</div>";
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4193,8 +4359,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var vue_class_component_1 = __webpack_require__(19);
-	var materialbox_1 = __webpack_require__(85);
-	var lean_overlay_1 = __webpack_require__(86);
+	var materialbox_1 = __webpack_require__(87);
+	var lean_overlay_1 = __webpack_require__(88);
 	var ESC = 27;
 	var Image = (function () {
 	    function Image() {
@@ -4282,7 +4448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            components: {
 	                mdLeanOverlay: lean_overlay_1.default
 	            },
-	            template: __webpack_require__(88)
+	            template: __webpack_require__(90)
 	        })
 	    ], Image);
 	    return Image;
@@ -4292,7 +4458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4432,7 +4598,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4448,7 +4614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    LeanOverlay = __decorate([
 	        vue_class_component_1.default({
-	            template: __webpack_require__(87)
+	            template: __webpack_require__(89)
 	        })
 	    ], LeanOverlay);
 	    return LeanOverlay;
@@ -4458,19 +4624,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"lean-overlay\" style=\"z-index: 1002; display: block; opacity: 0.5;\"></div>";
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"md-image\">\n    <div v-el:placeholder class=\"material-placeholder\">\n        <img @click=\"toggle\" :height=\"height\" :width=\"width\"\n             v-el:img\n             class=\"materialboxed\"\n             :class=\"{active: active}\">\n    </div>\n\n    <md-lean-overlay v-if=\"active\" @click=\"toggle\" transition=\"modal-overlay\"></md-lean-overlay>\n    <div v-if=\"active && caption\" transition=\"fade\" class=\"caption-wrapper\">\n        <div class=\"materialbox-caption\" style=\"display: block\">\n            {{caption}}\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4506,7 +4672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    twoWay: false
 	                }
 	            },
-	            template: __webpack_require__(90)
+	            template: __webpack_require__(92)
 	        })
 	    ], LinearPreloader);
 	    return LinearPreloader;
@@ -4516,13 +4682,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"progress\">\n    <div :class=\"{determinate: value != null, indeterminate: value == null}\" :style=\"computedStyle\"></div>\n</div>";
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4533,7 +4699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var vue_class_component_1 = __webpack_require__(19);
-	var lean_overlay_1 = __webpack_require__(86);
+	var lean_overlay_1 = __webpack_require__(88);
 	var ESC = 27;
 	var Modal = (function () {
 	    function Modal() {
@@ -4661,7 +4827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            },
-	            template: __webpack_require__(92)
+	            template: __webpack_require__(94)
 	        })
 	    ], Modal);
 	    return Modal;
@@ -4671,13 +4837,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports) {
 
 	module.exports = "<div v-if=\"active\" :id=\"id\" :transition=\"transition\"\n     :style=\"computedStyle\" class=\"modal\" :class=\"computedClasses\">\n    <slot name=\"content\">\n        <div class=\"modal-content\">\n            <slot></slot>\n        </div>\n        <div class=\"modal-footer\">\n            <slot name=\"footer\"></slot>\n        </div>\n    </slot>\n</div>\n\n<md-lean-overlay v-if=\"active\" transition=\"modal-overlay\"\n                 @click=\"close\">\n</md-lean-overlay>";
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4751,7 +4917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            },
-	            template: __webpack_require__(94)
+	            template: __webpack_require__(96)
 	        })
 	    ], NavItem);
 	    return NavItem;
@@ -4761,13 +4927,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = "<li @click=\"clicked\" :class=\"{active: active}\">\n    <slot name=\"content\">\n        <a :href=\"href\">\n            <slot></slot>\n        </a>\n    </slot>\n</li>";
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4891,7 +5057,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            },
-	            template: __webpack_require__(96)
+	            template: __webpack_require__(98)
 	        })
 	    ], Pagination);
 	    return Pagination;
@@ -4901,13 +5067,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = "<ul class=\"pagination\">\n    <li :class=\"{disabled: currentPage == 0}\">\n        <a v-if=\"firstLast\" @click.prevent=\"currentPage = 0\" href=\"#\"><i class=\"material-icons\">chevron_left</i></a>\n        <a @click.prevent=\"previousPage\" href=\"#\"><i class=\"material-icons\">chevron_left</i></a>\n    </li>\n\n    <li v-for=\"n in pager\"\n        @click.prevent=\"setCurrentPage(n)\"\n        :class=\"getClasses(n)\" v-wave-effect>\n        <a @click.prevent href=\"#\">{{n + 1}}</a>\n    </li>\n\n    <li :class=\"{disabled: currentPage == pages - 1}\">\n        <a @click.prevent=\"nextPage\" href=\"#\"><i class=\"material-icons\">chevron_right</i></a>\n        <a v-if=\"firstLast\" @click.prevent=\"currentPage = pages - 1\" href=\"#\"><i class=\"material-icons\">chevron_right</i></a>\n    </li>\n</ul>\n";
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4983,7 +5149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this._setClasses(val);
 	                }
 	            },
-	            template: __webpack_require__(98)
+	            template: __webpack_require__(100)
 	        })
 	    ], Slide);
 	    return Slide;
@@ -4993,13 +5159,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "<li :class=\"computedClasses\">\n    <img v-el:img>\n    <div class=\"caption\" :class=\"align + '-align'\">\n        <slot></slot>\n    </div>\n</li>";
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5054,7 +5220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return value > 1000;
 	                }
 	            },
-	            template: __webpack_require__(100)
+	            template: __webpack_require__(102)
 	        })
 	    ], Slider);
 	    return Slider;
@@ -5064,13 +5230,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"slider\">\n    <ul class=\"slides\">\n        <slot></slot>\n    </ul>\n    <ul class=\"indicators\">\n        <li v-for=\"index in itemsCount\"\n            @click=\"setActive(index)\"\n            @mouseover=\"activeItem == index && clearInterval(index)\"\n            @mouseout=\"setupInterval(index)\"\n            :class=\"{active: activeItem == index}\" class=\"indicator-item\"></li>\n    </ul>\n</div>";
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5112,7 +5278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(102)
+	            template: __webpack_require__(104)
 	        })
 	    ], Switch);
 	    return Switch;
@@ -5122,13 +5288,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"switch\">\n    <label>\n        <slot name=\"off\">Off</slot>\n        <input v-model=\"value\"\n               v-bind-boolean:disabled=\"disabled\"\n               :name=\"name\"\n               type=\"checkbox\">\n        <span class=\"lever\"></span>\n        <slot name=\"on\">On</slot>\n    </label>\n</div>";
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5210,7 +5376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.select(id);
 	                }
 	            },
-	            template: __webpack_require__(104)
+	            template: __webpack_require__(106)
 	        })
 	    ], Tab);
 	    return Tab;
@@ -5220,13 +5386,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<li @click=\"setAsSelected\" class=\"tab col\" :class=\"computedClasses\">\n    <slot></slot>\n</li>";
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5320,7 +5486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.select(tab);
 	                }
 	            },
-	            template: __webpack_require__(106)
+	            template: __webpack_require__(108)
 	        })
 	    ], Tabs);
 	    return Tabs;
@@ -5330,13 +5496,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"md-tabs\">\n    <ul class=\"tabs\">\n        <slot></slot>\n        <div v-el:indicator class=\"indicator\"></div>\n    </ul>\n\n    <slot name=\"contents\"></slot>\n</div>\n";
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
