@@ -89,7 +89,12 @@ export default class SelectField {
     }
 
     compiled() {
-        this.refreshOptions()
+        var options = this.$getAllChildren().filter((c: any) => {return 'SelectOption' == c.$options.name});
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+            var opt: any = this.createOption(option);
+            Vue.set(this.options, opt.value, opt);
+        }
     }
 
     ready() {
@@ -139,14 +144,9 @@ export default class SelectField {
         return this.$els.field;
     }
 
-    refreshOptions() {
-        var options = this.$getAllChildren().filter((c: any) => {return 'SelectOption' == c.$options.name});
-        for (var i = 0; i < options.length; i++) {
-            var option = options[i];
-            var opt: any = this.createOption(option);
-            Vue.set(this.options, opt.value, opt);
-        }
-    }
+    // refreshOptions() {
+    //
+    // }
     hasSlot(name = 'default') {
         return name in this._slotContents;
     }

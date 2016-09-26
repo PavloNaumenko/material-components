@@ -3857,7 +3857,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    };
 	    SelectField.prototype.compiled = function () {
-	        this.refreshOptions();
+	        var options = this.$getAllChildren().filter(function (c) { return 'SelectOption' == c.$options.name; });
+	        for (var i = 0; i < options.length; i++) {
+	            var option = options[i];
+	            var opt = this.createOption(option);
+	            Vue.set(this.options, opt.value, opt);
+	        }
 	    };
 	    SelectField.prototype.ready = function () {
 	        this.refreshDropdownOptions();
@@ -3918,14 +3923,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        enumerable: true,
 	        configurable: true
 	    });
-	    SelectField.prototype.refreshOptions = function () {
-	        var options = this.$getAllChildren().filter(function (c) { return 'SelectOption' == c.$options.name; });
-	        for (var i = 0; i < options.length; i++) {
-	            var option = options[i];
-	            var opt = this.createOption(option);
-	            Vue.set(this.options, opt.value, opt);
-	        }
-	    };
+	    // refreshOptions() {
+	    //
+	    // }
 	    SelectField.prototype.hasSlot = function (name) {
 	        if (name === void 0) { name = 'default'; }
 	        return name in this._slotContents;
