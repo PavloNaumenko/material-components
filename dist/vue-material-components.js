@@ -3158,7 +3158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 63 */
 /***/ function(module, exports) {
 
-	module.exports = "<div v-on-click-away=\"close\">\n    <md-dropdown-list>\n        <slot></slot>\n    </md-dropdown-list>\n\n    <span @click=\"open\">\n        <slot name=\"button\">\n            <md-button href=\"javascript:void(0)\"\n                 :class=\"{active: active}\"\n                 class=\"dropdown-button\">\n                {{title}}\n                <i class=\"mdi-navigation-arrow-drop-down right\"></i>\n            </md-button>\n        </slot>\n    </span>\n</div>\n";
+	module.exports = "<div v-on-click-away=\"close\">\n    <md-dropdown-list>\n        <slot></slot>\n    </md-dropdown-list>\n\n    <span @click=\"open\">\n        <slot name=\"button\">\n            <md-button href=\"javascript:void(0)\"\n                 :class=\"{active: active}\"\n                 class=\"dropdown-button\">\n                {{{title}}}\n                <i class=\"mdi-navigation-arrow-drop-down right\"></i>\n            </md-button>\n        </slot>\n    </span>\n</div>\n";
 
 /***/ },
 /* 64 */
