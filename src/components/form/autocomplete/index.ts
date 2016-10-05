@@ -89,12 +89,7 @@ export default class AutocompleteField {
     }
 
     compiled() {
-        var options = this.$getAllChildren().filter((c: any) => {return 'SelectOption' == c.$options.name});
-        for (var i = 0; i < options.length; i++) {
-            var option = options[i];
-            var opt: any = this.createOption(option);
-            Vue.set(this.options, opt.value, opt);
-        }
+        this.refreshOptions()
     }
 
     ready() {
@@ -128,6 +123,15 @@ export default class AutocompleteField {
 
     hasSlot(name = 'default') {
         return name in this._slotContents;
+    }
+
+    refreshOptions() {
+        var options = this.$getAllChildren().filter((c: any) => {return 'SelectOption' == c.$options.name});
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+            var opt: any = this.createOption(option);
+            Vue.set(this.options, opt.value, opt);
+        }
     }
 
     refreshDropdownOptions() {

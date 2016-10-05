@@ -4086,12 +4086,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    };
 	    AutocompleteField.prototype.compiled = function () {
-	        var options = this.$getAllChildren().filter(function (c) { return 'SelectOption' == c.$options.name; });
-	        for (var i = 0; i < options.length; i++) {
-	            var option = options[i];
-	            var opt = this.createOption(option);
-	            Vue.set(this.options, opt.value, opt);
-	        }
+	        this.refreshOptions();
 	    };
 	    AutocompleteField.prototype.ready = function () {
 	        this.refreshDropdownOptions();
@@ -4123,6 +4118,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    AutocompleteField.prototype.hasSlot = function (name) {
 	        if (name === void 0) { name = 'default'; }
 	        return name in this._slotContents;
+	    };
+	    AutocompleteField.prototype.refreshOptions = function () {
+	        var options = this.$getAllChildren().filter(function (c) { return 'SelectOption' == c.$options.name; });
+	        for (var i = 0; i < options.length; i++) {
+	            var option = options[i];
+	            var opt = this.createOption(option);
+	            Vue.set(this.options, opt.value, opt);
+	        }
 	    };
 	    AutocompleteField.prototype.refreshDropdownOptions = function () {
 	        var _this = this;
