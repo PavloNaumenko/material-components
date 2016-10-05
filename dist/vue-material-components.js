@@ -1353,6 +1353,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Velocity(backdrop, { opacity: 1 }, { duration: 55, delay: 0, queue: false });
 	        Velocity(backdrop, { scale: scale_factor }, { duration: 300, delay: 0, queue: false, easing: 'easeInOutQuad' });
 	    }, delay);
+	    element.addEventListener("click", function () {
+	        started = false;
+	        clearTimeout(timeoutRef);
+	        // Animate back
+	        setTimeout(function () {
+	            if (started != true) {
+	                Velocity(tooltip, { opacity: 0, marginTop: 0, marginLeft: 0 }, { duration: 225, queue: false });
+	                Velocity(backdrop, { opacity: 0, scale: 1 }, {
+	                    duration: 225,
+	                    queue: false,
+	                    complete: function () {
+	                        backdrop.style.display = 'none';
+	                        tooltip.style.display = 'none';
+	                        started = false;
+	                    }
+	                });
+	            }
+	        }, 225);
+	    });
 	    // todo obecne
 	    element.addEventListener("mouseleave", function () {
 	        started = false;
