@@ -17,6 +17,10 @@ var Vue: any = Vue || require('vue');
             required: false,
             'default': null
         },
+        placeholder: {
+            required: false,
+            'default': null
+        },
         name: {
             type: String,
             required: false,

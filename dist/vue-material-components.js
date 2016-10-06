@@ -4162,6 +4162,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    required: false,
 	                    'default': null
 	                },
+	                placeholder: {
+	                    required: false,
+	                    'default': null
+	                },
 	                name: {
 	                    type: String,
 	                    required: false,
@@ -4224,7 +4228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"md-autocomplete input-field\" v-click-away=\"close\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <div class=\"select-wrapper\">\n        <span v-if=\"!readonly\" class=\"caret\">▼</span>\n        <input @click=\"open\" v-model=\"valueContent\" :name=\"name\"\n               type=\"text\" class=\"select-dropdown\" :class=\"{'readonly': readonly}\" :debounce=\"debounce\">\n\n        <md-dropdown-list :active=\"active\" class=\"select-dropdown\">\n            <slot></slot>\n        </md-dropdown-list>\n\n        <select v-el:field\n                v-model=\"value\"\n                :placeholder=\"placeholder\" :id=\"id\"\n                :type=\"type\">\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\n        </select>\n    </div>\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\n        <slot name=\"label\"></slot>\n    </label>\n</div>";
+	module.exports = "<div class=\"md-autocomplete input-field\" v-click-away=\"close\">\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\n        <slot name=\"icon-name\"></slot>\n    </i>\n    <div class=\"select-wrapper\">\n        <span v-if=\"!readonly\" class=\"caret\">▼</span>\n        <input @click=\"open\" v-model=\"valueContent\" :name=\"name\"\n               type=\"text\" class=\"select-dropdown\" :class=\"{'readonly': readonly}\" :debounce=\"debounce\" :placeholder=\"placeholder\">\n\n        <md-dropdown-list :active=\"active\" class=\"select-dropdown\">\n            <slot></slot>\n        </md-dropdown-list>\n\n        <select v-el:field\n                v-model=\"value\"\n                :placeholder=\"placeholder\" :id=\"id\"\n                :type=\"type\">\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\n        </select>\n    </div>\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\n        <slot name=\"label\"></slot>\n    </label>\n</div>";
 
 /***/ },
 /* 84 */

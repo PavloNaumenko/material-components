@@ -5,7 +5,7 @@
     <div class="select-wrapper">
         <span v-if="!readonly" class="caret">▼</span>
         <input @click="open" v-model="valueContent" :name="name"
-               type="text" class="select-dropdown" :class="{'readonly': readonly}" :debounce="debounce">
+               type="text" class="select-dropdown" :class="{'readonly': readonly}" :debounce="debounce" :placeholder="placeholder">
 
         <md-dropdown-list :active="active" class="select-dropdown">
             <slot></slot>
