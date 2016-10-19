@@ -1242,9 +1242,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	}
 	// todo swap tooltip if oversize window
-	function default_1(element, message, position, delay) {
+	function default_1(element, message, position, delay, cssClass) {
 	    if (position === void 0) { position = 'top'; }
 	    if (delay === void 0) { delay = 50; }
+	    if (cssClass === void 0) { cssClass = ''; }
 	    var timeout = null, margin = 10;
 	    var origin = element;
 	    if (!element._tooltip) {
@@ -1254,6 +1255,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Create tooltip
 	        var newTooltip = document.createElement("DIV");
 	        newTooltip.classList.add('material-tooltip');
+	        if (cssClass)
+	            newTooltip.classList.add(cssClass);
 	        newTooltip.appendChild(tooltip_text);
 	        document.body.appendChild(newTooltip);
 	        var newBackdrop = document.createElement("DIV");

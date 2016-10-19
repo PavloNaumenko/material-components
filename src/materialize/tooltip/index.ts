@@ -15,7 +15,7 @@ function getOffset(element) {
 }
 
 // todo swap tooltip if oversize window
-export default function (element, message, position = 'top', delay = 50) {
+export default function (element, message, position = 'top', delay = 50, cssClass = '') {
     var timeout = null,
         margin = 10;
 
@@ -28,10 +28,9 @@ export default function (element, message, position = 'top', delay = 50) {
         // Create tooltip
         var newTooltip = document.createElement("DIV");
         newTooltip.classList.add('material-tooltip');
+        if (cssClass) newTooltip.classList.add(cssClass);
         newTooltip.appendChild(tooltip_text);
-
         document.body.appendChild(newTooltip);
-
         var newBackdrop = document.createElement("DIV");
         newBackdrop.classList.add('backdrop');
         newTooltip.appendChild(newBackdrop);
