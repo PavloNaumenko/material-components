@@ -1215,9 +1215,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = {
 	    methods: {
-	        tooltip: function (event, message, position, delay) {
+	        tooltip: function (event, message, position, delay, cssClass) {
 	            var element = event.currentTarget;
-	            return tooltip_1.default(element, message, position, delay);
+	            return tooltip_1.default(element, message, position, delay, cssClass);
 	        }
 	    }
 	};
