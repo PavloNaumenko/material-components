@@ -37,6 +37,14 @@
       "description": "Bottom dialog mode",
       "twoWay": false,
       "default": null
+    },
+    {
+      "name": "closeOverlayOnClick",
+      "type": "Boolean",
+      "required": false,
+      "description": "Bottom dialog mode",
+      "twoWay": false,
+      "default": null
     }
   ],
   "slots": [

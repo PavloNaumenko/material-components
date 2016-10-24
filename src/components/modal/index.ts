@@ -27,6 +27,12 @@ const ESC = 27;
             required: false,
             'default': false,
             twoWay: false
+        },
+        closeOverlayOnClick: {
+            type: Boolean,
+            required: false,
+            'default': false,
+            twoWay: false
         }
     },
     components: {
@@ -65,6 +71,7 @@ const ESC = 27;
 export default class Modal {
     private active: boolean;
     private bottom: boolean;
+    private closeOverlayOnClick: boolean;
     private class: string;
     private result: string;
 
@@ -125,6 +132,12 @@ export default class Modal {
         if (this.active) {
             this.active = false;
             this.result = null;
+        }
+    }
+
+    closeOverlay() {
+        if(this.closeOverlayOnClick) {
+            this.close();
         }
     }
 }
