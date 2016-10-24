@@ -31,7 +31,7 @@ const ESC = 27;
         closeOnOverlayClick: {
             type: Boolean,
             required: false,
-            'default': false,
+            'default': true,
             twoWay: false
         }
     },

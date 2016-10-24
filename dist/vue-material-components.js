@@ -4835,7 +4835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                closeOnOverlayClick: {
 	                    type: Boolean,
 	                    required: false,
-	                    'default': false,
+	                    'default': true,
 	                    twoWay: false
 	                }
 	            },
