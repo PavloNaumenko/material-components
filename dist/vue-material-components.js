@@ -4802,6 +4802,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.result = null;
 	        }
 	    };
+	    Modal.prototype.closeOverlay = function () {
+	        if (this.closeOverlayOnClick) {
+	            this.close();
+	        }
+	    };
 	    Modal = __decorate([
 	        vue_class_component_1.default({
 	            props: {
@@ -4822,6 +4827,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    twoWay: false
 	                },
 	                bottom: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': false,
+	                    twoWay: false
+	                },
+	                closeOverlayOnClick: {
 	                    type: Boolean,
 	                    required: false,
 	                    'default': false,
@@ -4872,7 +4883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 94 */
 /***/ function(module, exports) {
 
-	module.exports = "<div v-if=\"active\" :id=\"id\" :transition=\"transition\"\n     :style=\"computedStyle\" class=\"modal\" :class=\"computedClasses\">\n    <slot name=\"content\">\n        <div class=\"modal-content\">\n            <slot></slot>\n        </div>\n        <div class=\"modal-footer\">\n            <slot name=\"footer\"></slot>\n        </div>\n    </slot>\n</div>\n\n<md-lean-overlay v-if=\"active\" transition=\"modal-overlay\"\n                 @click=\"close\">\n</md-lean-overlay>";
+	module.exports = "<div v-if=\"active\" :id=\"id\" :transition=\"transition\"\n     :style=\"computedStyle\" class=\"modal\" :class=\"computedClasses\">\n    <slot name=\"content\">\n        <div class=\"modal-content\">\n            <slot></slot>\n        </div>\n        <div class=\"modal-footer\">\n            <slot name=\"footer\"></slot>\n        </div>\n    </slot>\n</div>\n\n<md-lean-overlay v-if=\"active\" transition=\"modal-overlay\"\n                 @click=\"closeOverlay\">\n</md-lean-overlay>";
 
 /***/ },
 /* 95 */
