@@ -4803,7 +4803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 	    Modal.prototype.closeOverlay = function () {
-	        if (this.closeOverlayOnClick) {
+	        if (this.closeOnOverlayClick) {
 	            this.close();
 	        }
 	    };
@@ -4832,7 +4832,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'default': false,
 	                    twoWay: false
 	                },
-	                closeOverlayOnClick: {
+	                closeOnOverlayClick: {
 	                    type: Boolean,
 	                    required: false,
 	                    'default': false,

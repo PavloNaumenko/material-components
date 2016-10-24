@@ -28,7 +28,7 @@ const ESC = 27;
             'default': false,
             twoWay: false
         },
-        closeOverlayOnClick: {
+        closeOnOverlayClick: {
             type: Boolean,
             required: false,
             'default': false,
@@ -71,7 +71,7 @@ const ESC = 27;
 export default class Modal {
     private active: boolean;
     private bottom: boolean;
-    private closeOverlayOnClick: boolean;
+    private closeOnOverlayClick: boolean;
     private class: string;
     private result: string;
 
@@ -136,7 +136,7 @@ export default class Modal {
     }
 
     closeOverlay() {
-        if(this.closeOverlayOnClick) {
+        if(this.closeOnOverlayClick) {
             this.close();
         }
     }

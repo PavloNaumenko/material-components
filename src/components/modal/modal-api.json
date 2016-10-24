@@ -39,7 +39,7 @@
       "default": null
     },
     {
-      "name": "closeOverlayOnClick",
+      "name": "closeOnOverlayClick",
       "type": "Boolean",
       "required": false,
       "description": "Bottom dialog mode",
