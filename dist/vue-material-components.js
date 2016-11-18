@@ -3069,9 +3069,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function DropdownItem() {
 	    }
 	    DropdownItem.prototype.select = function () {
-	        if (this.closing) {
-	            this.$dispatch('dropdown-list::close');
-	        }
+	        // if (this.closing) {
+	        this.$dispatch('dropdown-list::close');
+	        // }
 	        this.$dispatch('dropdown-item::selected', this.id);
 	    };
 	    Object.defineProperty(DropdownItem.prototype, "id", {
