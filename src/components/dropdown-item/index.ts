@@ -24,9 +24,9 @@ export default class DropdownItem {
     private _uid: string;
 
     select() {
-        if (this.closing) {
-            this.$dispatch('dropdown-list::close');
-        }
+        // if (this.closing) {
+        this.$dispatch('dropdown-list::close');
+        // }
         this.$dispatch('dropdown-item::selected', this.id);
     }
 
