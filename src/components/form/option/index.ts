@@ -78,6 +78,7 @@ export default class SelectOption {
 
     select() {
         if (!this.disabled) {
+            console.log('select')
             this.active = true;
             this.$dispatch('select::select', this.value);
         }
