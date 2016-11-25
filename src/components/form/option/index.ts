@@ -77,7 +77,7 @@ export default class SelectOption {
     }
 
     select() {
-        if (!this.active && !this.disabled) {
+        if (!this.disabled) {
             this.active = true;
             this.$dispatch('select::select', this.value);
         }
