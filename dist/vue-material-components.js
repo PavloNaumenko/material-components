@@ -3648,11 +3648,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        configurable: true
 	    });
 	    SelectOption.prototype.toggle = function () {
-	        if (!this.active) {
+	        if (!this.multiple) {
 	            this.select();
 	        }
 	        else {
-	            this.unselect();
+	            if (!this.active) {
+	                this.select();
+	            }
+	            else {
+	                this.unselect();
+	            }
 	        }
 	    };
 	    SelectOption.prototype.select = function () {

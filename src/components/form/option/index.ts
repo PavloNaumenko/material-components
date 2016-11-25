@@ -68,17 +68,21 @@ export default class SelectOption {
     }
 
     toggle() {
-        if (!this.active) {
+        if(!this.multiple) {
             this.select();
         }
         else {
-            this.unselect();
+            if (!this.active) {
+                this.select();
+            }
+            else {
+                this.unselect();
+            }
         }
     }
 
     select() {
         if (!this.disabled) {
-            console.log('select')
             this.active = true;
             this.$dispatch('select::select', this.value);
         }
