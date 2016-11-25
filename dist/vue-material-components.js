@@ -3662,7 +3662,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    SelectOption.prototype.select = function () {
 	        if (!this.disabled) {
-	            console.log('select');
 	            this.active = true;
 	            this.$dispatch('select::select', this.value);
 	        }
