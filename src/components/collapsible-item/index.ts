@@ -143,7 +143,7 @@ export default class CollapsibleItem {
             this.$dispatch('collapsible::close', this.id);
         }
         else {
-            this.$dispatch('collapsible::open', this.id);
+            this.$dispatch('collapsible::open', this.id, true);
         }
     }
 }
