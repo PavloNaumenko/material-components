@@ -1,6 +1,6 @@
 {
   "name": "vue-material-components",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Web components of Vue.js and materializecss",
   "library": "VueMaterialComponents",
   "main": "dist/vue-material-components.js",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "webpack --watch --colors --progress --config webpack.build.js --env dev",
-    "dist": "webpack --colors --progress --config  webpack.build.js --env dist && minify --output dist/vue-material-components.min.js dist/vue-material-components.js",
+    "build": "webpack --colors --progress --config  webpack.build.js --env dist && minify --output dist/vue-material-components.min.js dist/vue-material-components.js",
     "docs": "webpack --colors --progress --config webpack.build.js --env dev"
   },
   "keywords": [
